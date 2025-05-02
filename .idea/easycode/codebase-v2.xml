@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/src/main/java/pages/LoginPage.java;/home/deependra17/Hamro-Chat/src/main/java/util/DriverFactory.java;/home/deependra17/Hamro-Chat/src/main/java/util/SetUp.java;/home/deependra17/Hamro-Chat/src/test/java/runners/TestRunners.java;/home/deependra17/Hamro-Chat/src/test/java/stepdefinitions/LoginSteps.java" />
+  </component>
+</project>

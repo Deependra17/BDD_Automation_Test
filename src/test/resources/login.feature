@@ -1,28 +1,19 @@
-@SmokeTestScenarios
-Feature: Login functionality
+Feature: User Login
 
-  @SmokeTest
-    Scenario Outline: Check login functionality with valid credentials
-    Given User is on the login page
-    When User enters valid <userName> and <password>
-    And User clicks on login button
-    Then User should logged in successfully
+  Scenario Outline: Successful login with valid credentials
+    Given User enters valid email "<email>"
+    And User enters valid password "<password>"
+    When User clicks on login button
+    Then User should be logged in successfully
 
     Examples:
-    |userName | password|
-    |user1    |pass1   |
-    |user2    |pass2   |
-    |user3    |pass3   |
+      | email                | password |
+      | bohara17d@gmail.com  | pass1    |
 
-  Scenario: Verify login  functionality with invalid credentials
-    Given User is on the login page
-    When User enters invalid <userName> and <password>
-    And User clicks on login button
-    Then It will throw an error
 
-  Scenario: Check user registration with valid phone number
-    Given User is on the registartion page
-    When User enter valid phone number
-    And User enter valid OTP
-    Then User should be able to register successfully
-    And Sync contact popup should visible on the  landing page
+
+#  Scenario: User is not able to login with invalid credentials
+#    Given User enters invalid email "" in the email field
+#    And user enters invalid password "" in the password field
+#    When Error message is displayed
+

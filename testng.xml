@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Cucumber Test">
-    <test verbose="2" preserve-order="true" name="/home/deependra17/Hamro-Chat/src/test/resources">
+    <test verbose="2" preserve-order="true" name="Cucumber Tests">
         <classes>
-            <class name="runners.TestRunner"></class>
+            <class name="runners.TestRunner"/>
         </classes>
     </test>
 </suite>

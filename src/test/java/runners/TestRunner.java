@@ -7,7 +7,7 @@ import io.cucumber.testng.CucumberOptions;
         features = "src/test/resources/login.feature",
         glue = {"stepDefinitions", "util"},
         plugin = {
-                "pretty",
+                "pretty", //print output on console
                 "json:target/cucumber-reports/cucumber.json",  // Must match path in POM
                 "html:target/cucumber-reports/basic-html-report.html",
                 "junit:target/cucumber-reports/cucumber.xml",

@@ -1,18 +1,18 @@
 package util;
 
-import org.openqa.selenium.WebDriver;
-import io.cucumber.java.Before;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import org.openqa.selenium.WebDriver;
 
 public class Hooks {
 
     private WebDriver driver;
-
+    String url = "https://chat.hamropatro.com";
     @Before
     public void setUp() {
         driver = DriverSetUp.getDriver();
         driver.manage().window().maximize();
-        driver.get("https://tutorialsninja.com/demo/index.php?route=account/login");
+        driver.get(url);
         WaitUtils.setImplicitWait(driver, 10);
     }
 

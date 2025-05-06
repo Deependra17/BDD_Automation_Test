@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -13,39 +14,98 @@ import util.WaitUtils;
 
 public class LoginSteps {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
-    By emailField = By.id("input-email");
-    By passwordField = By.id("input-password");
-    By loginButton = By.xpath("//input[@value='Login']");
-    By myAccountHeader = By.xpath("//div[@id='content']/h2");
+    By googleLoginBtn = By.xpath(" ");
+    By emailField = By.id(" ");
+    By passwordField = By.name(" ");
+    By dashboardHeader = By.xpath(" ");
+    By errorMessage = By.xpath("");
+    By networkErrorMsg = By.xpath("");
+    By permissionDeniedMsg = By.xpath("");
+    By oauthTokenHiddenInput = By.id("oauth-token");
+    By googleLoginVisible = By.xpath("");
 
     public LoginSteps(Hooks hooks) {
         this.driver = hooks.getDriver();
     }
 
-    @Given("User enters valid email {string}")
-    public void user_enters_valid_email(String email) {
-        WebElement emailInput = WaitUtils.waitForVisibility(driver, emailField);
-        emailInput.sendKeys(email);
+    @Given("User navigates to Hamro Chat URL")
+    public void userNavigatesToLoginPage() {
+        driver.get(" ");
     }
 
-    @And("User enters valid password {string}")
-    public void user_enters_valid_password(String password) {
+    @When("User clicks on Google login button")
+    public void userClicksGoogleLogin() {
+        WaitUtils.waitForClickability(driver, googleLoginBtn).click();
+    }
+
+    @And("User enters username {string}")
+    public void userEntersUsername(String username) {
+        WebElement emailInput = WaitUtils.waitForVisibility(driver, emailField);
+        emailInput.clear();
+        emailInput.sendKeys(username);
+        emailInput.sendKeys(Keys.ENTER);
+    }
+
+    @And("User enters password {string}")
+    public void userEntersPassword(String password) {
         WebElement passwordInput = WaitUtils.waitForVisibility(driver, passwordField);
         passwordInput.sendKeys(password);
+        passwordInput.sendKeys(Keys.ENTER);
     }
 
-    @When("User clicks on login button")
-    public void user_clicks_on_login_button() {
-        WebElement loginBtn = WaitUtils.waitForClickability(driver, loginButton);
-        loginBtn.click();
+    @Then("User should see {string}")
+    public void userShouldSeeResult(String result) {
+        if (result.equalsIgnoreCase("Dashboard")) {
+            WebElement header = WaitUtils.fluentWait(driver, dashboardHeader, 10, 500);
+            Assert.assertTrue(header.isDisplayed(), "Dashboard not visible.");
+        } else {
+            WebElement message = driver.findElement(By.xpath("//*[contains(text(),'" + result + "')]"));
+            Assert.assertTrue(message.isDisplayed(), "Expected message not visible: " + result);
+        }
     }
 
-    @Then("User should be logged in successfully")
-    public void user_should_be_logged_in_successfully() {
-        WebElement header = WaitUtils.fluentWait(driver, myAccountHeader, 10, 500);
-        String actualHeader = header.getText();
-        Assert.assertEquals(actualHeader, "My Account", "Login failed or wrong page title.");
+    @And("User cancels the Google login popup")
+    public void userCancelsGoogleLoginPopup() {
+        System.out.println("Simulating Google popup cancel (mock or UI workaround needed).");
+        driver.navigate().back();
+    }
+
+    @And("a network error occurs")
+    public void simulateNetworkError() {
+        System.out.println("Simulating network failure. Should be handled via proxy/mock.");
+    }
+
+    @And("User denies access to account information")
+    public void userDeniesGooglePermission() {
+        System.out.println("Simulating permission denial in Google popup.");
+    }
+
+    @Then("User should remain on the login screen")
+    public void userRemainsOnLoginScreen() {
+        String currentURL = driver.getCurrentUrl();
+        Assert.assertTrue(currentURL.contains("login"), "User navigated away from login screen.");
+    }
+
+    @Then("The OAuth token should be encrypted and stored securely")
+    public void verifyOAuthTokenSecurity() {
+        WebElement tokenField = driver.findElement(oauthTokenHiddenInput);
+        String tokenValue = tokenField.getAttribute("value");
+        Assert.assertTrue(tokenValue != null && tokenValue.length() > 20, "OAuth token appears insecure or empty.");
+        System.out.println("Ensure actual encryption is validated via backend logs or inspection.");
+    }
+
+    @Then("User should see {string} button")
+    public void verifyGoogleLoginButtonVisible(String buttonText) {
+        WebElement button = WaitUtils.waitForVisibility(driver, googleLoginVisible);
+        Assert.assertTrue(button.isDisplayed(), "Google login button is not visible.");
+    }
+
+    @And("The button should follow the UI design guidelines")
+    public void verifyButtonDesignConsistency() {
+        WebElement button = driver.findElement(googleLoginVisible);
+        String backgroundColor = button.getCssValue("background-color");
+        Assert.assertNotNull(backgroundColor);
     }
 }

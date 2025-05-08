@@ -3,7 +3,7 @@
 <suite name="Cucumber Test">
     <test verbose="2" preserve-order="true" name="Cucumber Tests">
         <classes>
-            <class name="runners.TestRunner"/>
+            <class name="runners.LoginTest"/>
         </classes>
     </test>
 </suite>

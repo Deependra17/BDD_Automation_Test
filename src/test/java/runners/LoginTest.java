@@ -4,8 +4,9 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
-        features = "src/test/resources/login.feature",
+        features = "src/test/resources/features/login.feature",
         glue = {"stepDefinitions", "util"},
+        tags = "@googleLogin",
         plugin = {
                 "pretty", //print output on console
                 "json:target/cucumber-reports/cucumber.json",  // Must match path in POM
@@ -15,5 +16,5 @@ import io.cucumber.testng.CucumberOptions;
         },
         monochrome = true  // Clean and readable console output
 )
-public class TestRunner extends AbstractTestNGCucumberTests {
+public class LoginTest extends AbstractTestNGCucumberTests {
 }
